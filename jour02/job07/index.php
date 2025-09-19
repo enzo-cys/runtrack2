@@ -1,12 +1,21 @@
 <?php
-// Affiche un triangle de hauteur 5
+echo '<pre>';
 
 $hauteur = 5;
 
-for ($i = 1; $i <= $hauteur; $i++) {
-    for ($j = 1; $j <= $i; $j++) {
-        echo "*";
+for ($ligne = 0; $ligne < $hauteur; $ligne += 1) { 
+    $padding = $hauteur - $ligne - 1; 
+    echo str_repeat(' ', $padding); 
+
+    if ($ligne === 0) { 
+        echo '/' . '\\';
+    } elseif ($ligne === $hauteur - 1) { 
+        echo '/' . str_repeat('_', $ligne * 2) . '\\'; 
+    } else { 
+        echo '/' . str_repeat(' ', $ligne * 2) . '\\'; 
     }
-    echo "<br />";
+
+    echo "\n";
 }
-?>
+
+echo "</pre>";
