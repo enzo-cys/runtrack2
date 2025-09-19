@@ -2,7 +2,7 @@
 echo "<form method='post'>";
 echo "Largeur: <input type='text' name='largeur' required>";
 echo "Hauteur: <input type='text' name='hauteur' required>";
-echo "<button type='submit'>Submit</button>";
+echo "<button type='submit'>Vérifier</button>";
 echo "</form>";
 
 if (isset($_POST['largeur']) && isset($_POST['hauteur'])) {
