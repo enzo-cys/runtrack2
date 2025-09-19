@@ -1,49 +1,36 @@
+<!-- Job 05 : Compter voyelles et consonnes -->
 <?php
-// Job 05 : Compter voyelles et consonnes et afficher dans un tableau HTML
+$str = "On n'est pas le meilleur quand on le croit mais quand on le sait.";
 
-$str = "On n’est pas le meilleur quand on le croit mais quand on le sait";
-$dic = ["voyelles" => 0, "consonnes" => 0];
+$dic = array(
+    "voyelles" => 0,
+    "consonnes" => 0
+);
+
+//voyelles et consonnes
 $voyelles = "aeiouyAEIOUY";
-$i = 0;
-while (isset($str[$i])) {
-    $char = $str[$i];
-    // Vérifier si c'est une lettre
-    if (
-        ($char >= "a" && $char <= "z") ||
-        ($char >= "A" && $char <= "Z") ||
-        $char == "é" || $char == "è" || $char == "ê" || $char == "ë" ||
-        $char == "à" || $char == "â" || $char == "ä" ||
-        $char == "ù" || $char == "û" || $char == "ü" ||
-        $char == "ô" || $char == "ö" || $char == "î" || $char == "ï"
-    ) {
-        $j = 0;
-        $isVoyelle = false;
-        while (isset($voyelles[$j])) {
-            if (strtolower($char) == strtolower($voyelles[$j])) {
-                $isVoyelle = true;
-            }
-            $j++;
-        }
-        if ($isVoyelle) {
+$consonnes = "bcdfghjklmnpqrstvwxzBCDFGHJKLMNPQRSTVWXZ";
+
+// la chaîne caractère par caractère
+for ($i = 0; isset($str[$i]); $i++) {
+    $car = $str[$i];
+    // Vérifier si le caractère est une voyelle
+    for ($v = 0; isset($voyelles[$v]); $v++) {
+        if ($car === $voyelles[$v]) {
             $dic["voyelles"]++;
-        } else {
+        }
+    }
+    // Vérifier si le caractère est une consonne
+    for ($c = 0; isset($consonnes[$c]); $c++) {
+        if ($car === $consonnes[$c]) {
             $dic["consonnes"]++;
         }
     }
-    $i++;
 }
+
+//  Afficher le résultat dans un tableau HTML
+echo "<table border='1'>";
+echo "<thead><tr><th>Voyelles</th><th>Consonnes</th></tr></thead>";
+echo "<tbody><tr><td>".$dic["voyelles"]."</td><td>".$dic["consonnes"]."</td></tr></tbody>";
+echo "</table>";
 ?>
-<table border="1">
-    <thead>
-        <tr>
-            <th>Voyelles</th>
-            <th>Consonnes</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><?= $dic["voyelles"]; ?></td>
-            <td><?= $dic["consonnes"]; ?></td>
-        </tr>
-    </tbody>
-</table>

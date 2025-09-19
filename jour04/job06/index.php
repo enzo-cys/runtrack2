@@ -4,7 +4,7 @@
   <input type="submit" value="Vérifier">
 </form>
 <?php
-// Job 06 : Parité du nombre
+// Job 06 : Pair ou impaire
 if (isset($_GET['nombre'])) {
     $valeur = $_GET['nombre'];
     if (($valeur % 2) == 0) {
