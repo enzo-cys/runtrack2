@@ -12,6 +12,6 @@ if (isset($_POST)) {
     foreach ($_POST as $arg => $val) {
         $compteur++;
     }
-    echo "Le nombre d’argument POST envoyé est : $compteur";
+    echo "Le nombre d'argument POST envoyé est : $compteur";
 }
 ?>

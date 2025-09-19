@@ -12,6 +12,6 @@ if (isset($_GET)) {
     foreach ($_GET as $arg => $val) {
         $compteur++;
     }
-    echo "Le nombre d’argument GET envoyé est : $compteur";
+    echo "Le nombre d'argument GET envoyé est : $compteur";
 }
 ?>

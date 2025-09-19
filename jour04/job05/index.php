@@ -10,7 +10,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     $user = $_POST['username'];
     $pass = $_POST['password'];
     if ($user === "John" && $pass === "Rambo") {
-        echo "C’est pas ma guerre";
+        echo "C'est pas ma guerre";
     } else {
         echo "Votre pire cauchemar.";
     }
