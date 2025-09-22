@@ -1,0 +1,17 @@
+body {
+    background: #f5f6fa;
+    font-family: Arial, sans-serif;
+}
+form {
+    border: 2px solid #4a69bd;
+    padding: 20px;
+    border-radius: 8px;
+    background: #dff9fb;
+}
+button {
+    background: #4a69bd;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+}

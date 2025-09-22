@@ -1,0 +1,17 @@
+body {
+    background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+form {
+    border: 3px double #6a0572;
+    padding: 25px;
+    border-radius: 12px;
+    background: #fff3e6;
+}
+button {
+    background: #6a0572;
+    color: #fff3e6;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+}

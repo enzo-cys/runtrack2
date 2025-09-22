@@ -1,0 +1,18 @@
+body {
+    background: #232931;
+    color: #eeeeee;
+    font-family: 'Courier New', Courier, monospace;
+}
+form {
+    border: 2px dashed #ff5722;
+    padding: 20px;
+    border-radius: 8px;
+    background: #393e46;
+}
+button {
+    background: #ff5722;
+    color: #232931;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+}
