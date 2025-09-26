@@ -1,2 +1,2 @@
-USE 'jour09';
+USE `jour09`;
 SELECT nom, capacite FROM salles;

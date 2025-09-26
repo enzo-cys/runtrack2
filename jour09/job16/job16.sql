@@ -1,4 +1,4 @@
-USE 'jour09';
+USE `jour09`;
 SELECT etage.nom AS etage, salles.nom AS 'Biggest Room', salles.capacite
 FROM salles
 JOIN etage ON salles.id_etage = etage.id
