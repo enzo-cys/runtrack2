@@ -1,26 +1,32 @@
 <?php
-$mysqli = new mysqli("localhost", "root", "", "jour09");
-if ($mysqli->connect_error) die("Erreur de connexion: " . $mysqli->connect_error);
-
-$sql = "SELECT prenom, nom, naissance FROM etudiants 
+try {
+    $pdo = new PDO("mysql:host=localhost;dbname=jour09;charset=utf8mb4","root","",[
+        PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION
+    ]);
+    $rows = $pdo->query("
+        SELECT prenom, nom, naissance
+        FROM etudiants
         WHERE naissance BETWEEN '1998-01-01' AND '2018-12-31'
-        ORDER BY naissance";
-$result = $mysqli->query($sql);
-if (!$result) die("Erreur SQL: " . $mysqli->error);
-
-echo "<table border='1'><thead><tr>";
-while ($field = $result->fetch_field()) echo "<th>" . htmlspecialchars($field->name) . "</th>";
-echo "</tr></thead><tbody>";
-if ($result->num_rows === 0) {
-    echo "<tr><td colspan='3'>Aucun étudiant dans cet intervalle.</td></tr>";
-} else {
-    while ($row = $result->fetch_assoc()) {
-        echo "<tr>";
-        foreach ($row as $val) echo "<td>" . htmlspecialchars($val) . "</td>";
-        echo "</tr>";
-    }
-}
-echo "</tbody></table>";
-
-$mysqli->close();
+        ORDER BY naissance
+    ")->fetchAll(PDO::FETCH_ASSOC);
+} catch(PDOException $e){ die("Erreur : ".$e->getMessage()); }
 ?>
+<!DOCTYPE html>
+<html lang="fr">
+<head><meta charset="UTF-8"></head>
+<body>
+<table border="1">
+    <thead><tr><th>prenom</th><th>nom</th><th>naissance</th></tr></thead>
+    <tbody>
+    <?php if(!$rows): ?><tr><td colspan="3">Aucune donnée.</td></tr>
+    <?php else: foreach($rows as $r): ?>
+        <tr>
+            <td><?= htmlspecialchars($r['prenom']) ?></td>
+            <td><?= htmlspecialchars($r['nom']) ?></td>
+            <td><?= htmlspecialchars($r['naissance']) ?></td>
+        </tr>
+    <?php endforeach; endif; ?>
+    </tbody>
+</table>
+</body>
+</html>

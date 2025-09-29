@@ -1,24 +1,24 @@
 <?php
-$mysqli = new mysqli("localhost", "root", "", "jour09");
-if ($mysqli->connect_error) die("Erreur de connexion: " . $mysqli->connect_error);
-
-$sql = "SELECT * FROM etudiants WHERE TIMESTAMPDIFF(YEAR, naissance, CURDATE()) < 18";
-$result = $mysqli->query($sql);
-if (!$result) die("Erreur SQL: " . $mysqli->error);
-
-echo "<table border='1'><thead><tr>";
-while ($field = $result->fetch_field()) echo "<th>" . htmlspecialchars($field->name) . "</th>";
-echo "</tr></thead><tbody>";
-if ($result->num_rows === 0) {
-    echo "<tr><td colspan='6'>Aucun étudiant de moins de 18 ans.</td></tr>";
-} else {
-    while ($row = $result->fetch_assoc()) {
-        echo "<tr>";
-        foreach ($row as $val) echo "<td>" . htmlspecialchars($val) . "</td>";
-        echo "</tr>";
-    }
-}
-echo "</tbody></table>";
-
-$mysqli->close();
+try {
+    $pdo = new PDO("mysql:host=localhost;dbname=jour09;charset=utf8mb4","root","",[
+        PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION
+    ]);
+    $rows = $pdo->query("SELECT *, TIMESTAMPDIFF(YEAR, naissance, CURDATE()) AS age FROM etudiants HAVING age < 18")->fetchAll(PDO::FETCH_ASSOC);
+} catch(PDOException $e){ die("Erreur : ".$e->getMessage()); }
+$cols = $rows ? array_keys($rows[0]) : [];
 ?>
+<!DOCTYPE html>
+<html lang="fr">
+<head><meta charset="UTF-8"></head>
+<body>
+<table border="1">
+    <thead><tr><?php foreach($cols as $c) echo "<th>".htmlspecialchars($c)."</th>"; ?></tr></thead>
+    <tbody>
+    <?php if(!$rows): ?><tr><td colspan="<?= count($cols) ?: 1 ?>">Aucune donnée.</td></tr>
+    <?php else: foreach($rows as $r): ?>
+        <tr><?php foreach($cols as $c): ?><td><?= htmlspecialchars($r[$c]) ?></td><?php endforeach; ?></tr>
+    <?php endforeach; endif; ?>
+    </tbody>
+</table>
+</body>
+</html>

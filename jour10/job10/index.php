@@ -1,20 +1,24 @@
 <?php
-$mysqli = new mysqli("localhost", "root", "", "jour09");
-if ($mysqli->connect_error) die("Erreur de connexion: " . $mysqli->connect_error);
-
-$sql = "SELECT * FROM salles ORDER BY capacite ASC";
-$result = $mysqli->query($sql);
-if (!$result) die("Erreur SQL: " . $mysqli->error);
-
-echo "<table border='1'><thead><tr>";
-while ($field = $result->fetch_field()) echo "<th>" . htmlspecialchars($field->name) . "</th>";
-echo "</tr></thead><tbody>";
-while ($row = $result->fetch_assoc()) {
-    echo "<tr>";
-    foreach ($row as $val) echo "<td>" . htmlspecialchars($val) . "</td>";
-    echo "</tr>";
-}
-echo "</tbody></table>";
-
-$mysqli->close();
+try {
+    $pdo = new PDO("mysql:host=localhost;dbname=jour09;charset=utf8mb4","root","",[
+        PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION
+    ]);
+    $rows = $pdo->query("SELECT * FROM salles ORDER BY capacite ASC")->fetchAll(PDO::FETCH_ASSOC);
+} catch(PDOException $e){ die("Erreur : ".$e->getMessage()); }
+$cols = $rows ? array_keys($rows[0]) : [];
 ?>
+<!DOCTYPE html>
+<html lang="fr">
+<head><meta charset="UTF-8"></head>
+<body>
+<table border="1">
+    <thead><tr><?php foreach($cols as $c) echo "<th>".htmlspecialchars($c)."</th>"; ?></tr></thead>
+    <tbody>
+    <?php if(!$rows): ?><tr><td colspan="<?= count($cols) ?: 1 ?>">Aucune donnée.</td></tr>
+    <?php else: foreach($rows as $r): ?>
+        <tr><?php foreach($cols as $c): ?><td><?= htmlspecialchars($r[$c]) ?></td><?php endforeach; ?></tr>
+    <?php endforeach; endif; ?>
+    </tbody>
+</table>
+</body>
+</html>
